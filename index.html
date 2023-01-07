@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h1>Psul Doney C45454</h1>
+<h1>Paul Doney C45454</h1>
 <h2> Register </h2>
 
 <div id="message"></div>
@@ -19,19 +19,28 @@
          <table>
             <tr>
                 <td>Username:</td>
-                <td><input id="user_name" type="text" required /></td></tr>
+                <td><input id="user_name" type="text"/></td>
+                <td id="userNameError"></td>
+            </tr>
+
             <tr>
                 <td>Email:</td>
-                <td><input id="email" type="email" required /></td></tr>
+                <td><input id="email" type="email"/></td>
+                <td id="emailError"></td>
+            </tr>
+
             <tr>
                 <td>Password:</td>
-                <td><input id="password" type="password" required /></td></tr>
+                <td><input id="password" type="password"/></td>
+                <td id="passwordError"></td>
+            </tr>
+
             <tr>
                 <td>Age:</td>
                 <td>
 
                     <select id="age">
-                        <option selected>-- Please Select Age --</option>
+                        <option>-- Please Select Age --</option>
                         <option value="10">10</option>
                         <option value="18">18</option>
                         <option value="20">20</option>
@@ -39,10 +48,14 @@
                     </select>
 
                 </td>
+                <td id="ageError"></td>
             </tr>
+
             <tr>
                 <td>Click To Confirm</td>
-                <td><input type="checkbox" required /></td></tr>
+                <td><input id="checkBox" type="checkbox" value="1"/></td>
+                <td id="checkboxError"></td>
+            </tr>
         </table>
 
     </fieldset>
@@ -64,33 +77,37 @@
         var email 	 = $('#email').val();
         var password = $('#password').val();
         var age      = $('#age').find(":selected").val();
+        var checkbox      = $('#checkBox').val();
 
         var atpos  = email.indexOf('@');
         var dotpos = email.lastIndexOf('.com');
 
         if(username == ''){ // check username not empty
-            alert('please enter username !!');
+            $('#userNameError').html('please enter username !!');
         }
         else if(username.length < 6){ //check username value length six
-            alert('username must be 6 character !!');
+            $('#userNameError').html('username must be 6 character !!');
         }
         else if(email == ''){ //check email not empty
-            alert('please enter email address !!');
+            $('#emailError').html('please enter email address !!');
         }
         else if(atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= email.length){ //check valid email format
-            alert('please enter valid email address !!');
+            $('#emailError').html('please enter valid email address !!');
         }
         else if(!/^[a-z A-Z]+$/.test(password)){ // check password allowed capital and small letters
-            alert('password only capital and small letters and number are allowed !!');
+            $('#passwordError').html('password only capital and small letters and number are allowed !!');
         }
         else if(password == ''){ //check password not empty
-            alert('please enter password !!');
+            $('#passwordError').html('please enter password !!');
         }
-        else if(password.length < 8){ //check password value length six
-            alert('password must be 8 character !!');
+        else if(password.length < 8){ //check password value length eight
+            $('#passwordError').html('password must be 8 character !!');
         }
         else if(age.length == ''){ //select age range
-            alert('please select an age range !!');
+            $('#ageError').html('please select an age range !!');
+        }
+        else if(checkbox != 1){ //check confirm
+            $('#checkboxError').html('please check confirm !!');
         }
         else{
             $.ajax({
