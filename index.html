@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h1>Poule Doney</h1>
+<h1>Psul Doney C45454</h1>
 <h2> Register </h2>
 
 <div id="message"></div>
@@ -18,16 +18,16 @@
 
          <table>
             <tr>
-                <td>Username</td>
+                <td>Username:</td>
                 <td><input id="user_name" type="text" required /></td></tr>
             <tr>
-                <td>Email</td>
+                <td>Email:</td>
                 <td><input id="email" type="email" required /></td></tr>
             <tr>
-                <td>Password</td>
+                <td>Password:</td>
                 <td><input id="password" type="password" required /></td></tr>
             <tr>
-                <td>age</td>
+                <td>Age:</td>
                 <td>
 
                     <select id="age">
@@ -47,8 +47,8 @@
 
     </fieldset>
 
-<input type="submit" id="formSubmit"/>
-<input type="reset"  id="formReset"/>
+<input type="submit" value="submit" id="formSubmit"/>
+<input type="reset"  value="clear" id="formReset"/>
 </form>
 
 
@@ -71,8 +71,8 @@
         if(username == ''){ // check username not empty
             alert('please enter username !!');
         }
-        else if(!/^[a-z A-Z]+$/.test(username)){ // check username allowed capital and small letters
-            alert('username only capital and small letters are allowed !!');
+        else if(username.length < 6){ //check username value length six
+            alert('username must be 6 character !!');
         }
         else if(email == ''){ //check email not empty
             alert('please enter email address !!');
