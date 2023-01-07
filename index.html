@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+</head>
+<body>
+
+<h1>Poule Doney</h1>
+<h2> Register </h2>
+
+<div id="message"></div>
+
+<form id="registraion_form">
+
+    <fieldset>
+    <legend> New User Details </legend>
+
+         <table>
+            <tr>
+                <td>Username</td>
+                <td><input id="user_name" type="text" required /></td></tr>
+            <tr>
+                <td>Email</td>
+                <td><input id="email" type="email" required /></td></tr>
+            <tr>
+                <td>Password</td>
+                <td><input id="password" type="password" required /></td></tr>
+            <tr>
+                <td>age</td>
+                <td>
+
+                    <select id="age">
+                        <option selected>-- Please Select Age --</option>
+                        <option value="10">10</option>
+                        <option value="18">18</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Click To Confirm</td>
+                <td><input type="checkbox" required /></td></tr>
+        </table>
+
+    </fieldset>
+
+<input type="submit" id="formSubmit"/>
+<input type="reset"  id="formReset"/>
+</form>
+
+
+
+<script src="js/jquery-3.6.3.js"></script>
+<script>
+
+    $(document).on('click','#formSubmit',function(e){
+
+        e.preventDefault();
+
+        var username = $('#user_name').val();
+        var email 	 = $('#email').val();
+        var password = $('#password').val();
+        var age      = $('#age').find(":selected").val();
+
+        var atpos  = email.indexOf('@');
+        var dotpos = email.lastIndexOf('.com');
+
+        if(username == ''){ // check username not empty
+            alert('please enter username !!');
+        }
+        else if(!/^[a-z A-Z]+$/.test(username)){ // check username allowed capital and small letters
+            alert('username only capital and small letters are allowed !!');
+        }
+        else if(email == ''){ //check email not empty
+            alert('please enter email address !!');
+        }
+        else if(atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= email.length){ //check valid email format
+            alert('please enter valid email address !!');
+        }
+        else if(!/^[a-z A-Z]+$/.test(password)){ // check password allowed capital and small letters
+            alert('password only capital and small letters and number are allowed !!');
+        }
+        else if(password == ''){ //check password not empty
+            alert('please enter password !!');
+        }
+        else if(password.length < 8){ //check password value length six
+            alert('password must be 8 character !!');
+        }
+        else if(age.length == ''){ //select age range
+            alert('please select an age range !!');
+        }
+        else{
+            $.ajax({
+                url: 'reg-process.php',
+                type: 'post',
+                data:
+                    {
+                        user_name: username,
+                        email: email,
+                        password: password,
+                        age: age,
+                    },
+                success: function(response){
+                    $('#message').html(response);
+                }
+            });
+
+            $('#registraion_form')[0].reset();
+        }
+    });
+
+</script>
+</body>
+</html>
