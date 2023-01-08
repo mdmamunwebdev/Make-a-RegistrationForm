@@ -33,24 +33,51 @@ $(document).on('click','#formSubmit',function(e){
 
 
         else if(password == ''){ //check password not empty
+            $('#userNameError').html('');
             $('#emailError').html('');
             $('#passwordError').html('Please enter password !!');
         }
         else if(password.length < 8){ //check password value length eight
+            $('#userNameError').html('');
             $('#emailError').html('');
             $('#passwordError').html('Password must be 8 character !!');
         }
         else if( !/^[a-zA-Z0-9]+$/.test(password) ){ // check password allowed capital and small letters
+            $('#userNameError').html('');
             $('#emailError').html('');
             $('#passwordError').html('Password only capital and small letters and number are allowed !!');
         }
+        else if( /^[a-zA-Z0-9]+$/.test(password) ){ // check password allowed capital and small letters
+
+            if ( ( containsUppercase( password ) == false ) ) {
+                $('#userNameError').html('');
+                $('#emailError').html('');
+                $('#passwordError').html('Password includes at least one uppercase letter. !!');
+            }
+            else if( containsLowercase( password ) == false  ){
+                $('#userNameError').html('');
+                $('#emailError').html('');
+                $('#passwordError').html('Password includes at least one  one lowercase letter . !!');
+            }
+            else if( containsNumber( password ) == false ){
+                $('#userNameError').html('');
+                $('#emailError').html('');
+                $('#passwordError').html('Password includes at least one  a number. !!');
+            }
+
+        }
 
         else if(age == '-- Please Select Age --'){ //select age range
+            $('#userNameError').html('');
+            $('#emailError').html('');
             $('#passwordError').html('');
             $('#ageError').html('Please select an age range !!');
         }
 
         else if(!checkbox){ //check confirm
+            $('#userNameError').html('');
+            $('#emailError').html('');
+            $('#passwordError').html('');
             $('#ageError').html('');
             $('#checkboxError').html('Please check confirm !!');
         }
@@ -62,9 +89,9 @@ $(document).on('click','#formSubmit',function(e){
                         data:
                         {
                             user_name: username,
-                                email: email,
-                             password: password,
-                                  age: age,
+                            email: email,
+                            password: password,
+                            age: age,
                         },
                         success: function(response){
                             $('#message').html(response);
@@ -73,8 +100,21 @@ $(document).on('click','#formSubmit',function(e){
                 );
 
                 $('#registraion_form')[0].reset();
+
                 $('#checkBoxError').html('');
 
         }
     }
 );
+
+function containsUppercase(str) {
+    return /[A-Z]/.test(str);
+}
+
+function containsLowercase(str) {
+    return /[a-z]/.test(str);
+}
+
+function containsNumber(str) {
+    return /[0-9]/.test(str);
+}
