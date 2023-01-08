@@ -18,25 +18,25 @@
 
          <table>
             <tr>
-                <td>Username:</td>
+                <td>Username :</td>
                 <td><input id="user_name" type="text"/></td>
                 <td id="userNameError"></td>
             </tr>
 
             <tr>
-                <td>Email:</td>
+                <td>Email :</td>
                 <td><input id="email" type="email"/></td>
                 <td id="emailError"></td>
             </tr>
 
             <tr>
-                <td>Password:</td>
+                <td>Password :</td>
                 <td><input id="password" type="password"/></td>
                 <td id="passwordError"></td>
             </tr>
 
             <tr>
-                <td>Age:</td>
+                <td>Age :</td>
                 <td>
 
                     <select id="age">
@@ -52,8 +52,8 @@
             </tr>
 
             <tr>
-                <td>Click To Confirm</td>
-                <td><input id="checkBox" type="checkbox" value="1"/></td>
+                <td>Click To Confirm :</td>
+                <td><input id="checkBox" type="checkbox" value="yes"/></td>
                 <td id="checkboxError"></td>
             </tr>
         </table>
@@ -62,73 +62,12 @@
 
 <input type="submit" value="submit" id="formSubmit"/>
 <input type="reset"  value="clear" id="formReset"/>
+
 </form>
 
 
-
+<!--Js Code Section-->
 <script src="js/jquery-3.6.3.js"></script>
-<script>
-
-    $(document).on('click','#formSubmit',function(e){
-
-        e.preventDefault();
-
-        var username = $('#user_name').val();
-        var email 	 = $('#email').val();
-        var password = $('#password').val();
-        var age      = $('#age').find(":selected").val();
-        var checkbox      = $('#checkBox').val();
-
-        var atpos  = email.indexOf('@');
-        var dotpos = email.lastIndexOf('.com');
-
-        if(username == ''){ // check username not empty
-            $('#userNameError').html('please enter username !!');
-        }
-        else if(username.length < 6){ //check username value length six
-            $('#userNameError').html('username must be 6 character !!');
-        }
-        else if(email == ''){ //check email not empty
-            $('#emailError').html('please enter email address !!');
-        }
-        else if(atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= email.length){ //check valid email format
-            $('#emailError').html('please enter valid email address !!');
-        }
-        else if(!/^[a-z A-Z]+$/.test(password)){ // check password allowed capital and small letters
-            $('#passwordError').html('password only capital and small letters and number are allowed !!');
-        }
-        else if(password == ''){ //check password not empty
-            $('#passwordError').html('please enter password !!');
-        }
-        else if(password.length < 8){ //check password value length eight
-            $('#passwordError').html('password must be 8 character !!');
-        }
-        else if(age.length == ''){ //select age range
-            $('#ageError').html('please select an age range !!');
-        }
-        else if(checkbox != 1){ //check confirm
-            $('#checkboxError').html('please check confirm !!');
-        }
-        else{
-            $.ajax({
-                url: 'reg-process.php',
-                type: 'post',
-                data:
-                    {
-                        user_name: username,
-                        email: email,
-                        password: password,
-                        age: age,
-                    },
-                success: function(response){
-                    $('#message').html(response);
-                }
-            });
-
-            $('#registraion_form')[0].reset();
-        }
-    });
-
-</script>
+<script src="js/jquery-ajax.js"></script>
 </body>
 </html>

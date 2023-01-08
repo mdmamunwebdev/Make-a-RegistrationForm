@@ -24,7 +24,7 @@ if(isset($_POST["user_name"]) && isset($_POST["email"]) && isset($_POST["passwor
                                                  :password,
                                                  :age
                                             )
-                                            ");
+                                        ");
 
 
     $stmt->bindParam(":user_name",$user_name);
@@ -34,11 +34,11 @@ if(isset($_POST["user_name"]) && isset($_POST["email"]) && isset($_POST["passwor
 
     if($stmt->execute())
     {
-        echo 'Register Successfully   ';
+        echo 'Register Successfully !';
     }
     else
     {
-        echo  ' Fail to Register  ';
+        echo  'Fail to Register !';
     }
 }
 
