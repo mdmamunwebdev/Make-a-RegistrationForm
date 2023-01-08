@@ -12,7 +12,6 @@ $(document).on('click','#formSubmit',function(e){
         var dotpos = email.lastIndexOf('.com');
 
 
-
         if(username == ''){ // check username not empty
             $('#userNameError').html('Please enter username !!');
         }
@@ -29,7 +28,6 @@ $(document).on('click','#formSubmit',function(e){
             $('#userNameError').html('');
             $('#emailError').html('Please enter valid email address !!');
         }
-
 
 
         else if(password == ''){ //check password not empty
@@ -64,45 +62,42 @@ $(document).on('click','#formSubmit',function(e){
                 $('#emailError').html('');
                 $('#passwordError').html('Password includes at least one  a number. !!');
             }
+            else {
 
-        }
+                if(age == '-- Please Select Age --'){ //select age range
+                    $('#userNameError').html('');
+                    $('#emailError').html('');
+                    $('#passwordError').html('');
+                    $('#ageError').html('Please select an age range !!');
+                }
+                else if(!checkbox){ //check confirm
+                    $('#userNameError').html('');
+                    $('#emailError').html('');
+                    $('#passwordError').html('');
+                    $('#ageError').html('');
+                    $('#confirmBoxError').html('Please check confirm !!');
+                }
+                else{
 
-        else if(age == '-- Please Select Age --'){ //select age range
-            $('#userNameError').html('');
-            $('#emailError').html('');
-            $('#passwordError').html('');
-            $('#ageError').html('Please select an age range !!');
-        }
+                    $.ajax({
+                                    url: 'reg-process.php',
+                                    type: 'post',
+                                    data: {
+                                        user_name: username,
+                                        email    : email,
+                                        password : password,
+                                        age      : age,
+                                    },
+                                    success: function(response){
+                                        $('#message').html(response);
+                                    }
+                            });
 
-        else if(!checkbox){ //check confirm
-            $('#userNameError').html('');
-            $('#emailError').html('');
-            $('#passwordError').html('');
-            $('#ageError').html('');
-            $('#checkboxError').html('Please check confirm !!');
-        }
+                    fieldEmpty()
+                    $('#registraion_form')[0].reset();
 
-        else{
-                $.ajax({
-                        url: 'reg-process.php',
-                        type: 'post',
-                        data:
-                        {
-                            user_name: username,
-                            email: email,
-                            password: password,
-                            age: age,
-                        },
-                        success: function(response){
-                            $('#message').html(response);
-                        }
-                    }
-                );
-
-                $('#registraion_form')[0].reset();
-
-                $('#checkBoxError').html('');
-
+                }
+            }
         }
     }
 );
@@ -117,4 +112,12 @@ function containsLowercase(str) {
 
 function containsNumber(str) {
     return /[0-9]/.test(str);
+}
+
+function fieldEmpty() {
+    $('#userNameError').html('');
+    $('#emailError').html('');
+    $('#passwordError').html('');
+    $('#ageError').html('');
+    $('#confirmBoxError').html('');
 }
